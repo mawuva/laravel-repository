@@ -5,7 +5,7 @@
         "mawuekom",
         "laravel-repository"
     ],
-    "homepage": "https://github.com/mawuekom/laravel-repository",
+    "homepage": "https://github.com/mawuva/laravel-repository",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mawuekom\\LaravelRepository\\": "src"
+            "Mawuekom\\Repository\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mawuekom\\LaravelRepository\\Tests\\": "tests"
+            "Mawuekom\\Repository\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mawuekom\\LaravelRepository\\LaravelRepositoryServiceProvider"
+                "Mawuekom\\Repository\\RepositoryServiceProvider"
             ],
             "aliases": {
-                "LaravelRepository": "Mawuekom\\LaravelRepository\\LaravelRepositoryFacade"
+                "Repository": "Mawuekom\\Repository\\RepositoryFacade"
             }
         }
     }

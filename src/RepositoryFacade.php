@@ -1,13 +1,13 @@
 <?php
 
-namespace Mawuekom\LaravelRepository;
+namespace Mawuekom\Repository;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Mawuekom\LaravelRepository\Skeleton\SkeletonClass
+ * @see \Mawuekom\Repository\Skeleton\SkeletonClass
  */
-class LaravelRepositoryFacade extends Facade
+class RepositoryFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class LaravelRepositoryFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-repository';
+        return 'repository';
     }
 }
