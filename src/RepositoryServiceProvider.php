@@ -21,7 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('repository.php'),
+                __DIR__.'/../config/repository.php' => config_path('repository.php'),
             ], 'config');
 
             // Publishing the views.
@@ -50,7 +50,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'repository');
+        $this->mergeConfigFrom(__DIR__.'/../config/repository.php', 'repository');
 
         // Register the main class to use with the facade
         $this->app->singleton('repository', function () {
