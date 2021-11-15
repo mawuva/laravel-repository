@@ -55,11 +55,22 @@ interface RepositoryQueryContract
     public function find($id, $columns = ['*']);
 
     /**
+     * Find one data row by field and value
+     *
+     * @param string $field
+     * @param string $value
+     * @param array  $columns
+     *
+     * @return mixed
+     */
+    public function findOneByField($field, $value = null, $columns = ['*']);
+
+    /**
      * Find data by field and value
      *
-     * @param       $field
-     * @param       $value
-     * @param array $columns
+     * @param string $field
+     * @param string $value
+     * @param array  $columns
      *
      * @return mixed
      */
