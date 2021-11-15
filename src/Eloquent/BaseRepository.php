@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Mawuekom\Repository\Contracts\Criteria\RepositoryCriteriaContract;
 use Mawuekom\Repository\Contracts\RepositoryContract;
+use Mawuekom\Repository\Controls\RepositoryCommand;
+use Mawuekom\Repository\Controls\RepositoryQuery;
 use Mawuekom\Repository\Criteria\RepositoryCriteria;
 use Mawuekom\Repository\Exceptions\RepositoryException;
 use Mawuekom\Repository\Traits\CallsModelMethods;
 
 abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaContract
 {
-    use CallsModelMethods, RepositoryCriteria;
+    use CallsModelMethods, RepositoryCriteria, RepositoryCommand, RepositoryQuery;
 
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
@@ -53,6 +55,13 @@ abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaC
     abstract public function model();
 
     /**
+     * Get the columns on which the search will be done
+     * 
+     * @return array
+     */
+    abstract public function searchableFields();
+
+    /**
      * Create model instance
      * 
      * @throws \Mawuekom\Repository\Exceptions\RepositoryException
@@ -89,6 +98,18 @@ abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaC
     public function resetModel()
     {
         $this ->makeModel();
+    }
+
+    /**
+     * Alias of All method
+     *
+     * @param array $columns
+     *
+     * @return mixed
+     */
+    public function get($columns = ['*'])
+    {
+        return $this ->all($columns);
     }
 
     /**
