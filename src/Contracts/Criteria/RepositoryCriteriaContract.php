@@ -1,6 +1,6 @@
 <?php
 
-namespace Mawuekom\Repository\Contracts;
+namespace Mawuekom\Repository\Contracts\Criteria;
 
 interface RepositoryCriteriaContract
 {
