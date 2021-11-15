@@ -2,7 +2,10 @@
 
 namespace Mawuekom\Repository\Contracts;
 
-interface RepositoryContract
+use Mawuekom\Repository\Contracts\Controls\RepositoryCommandContract;
+use Mawuekom\Repository\Contracts\Controls\RepositoryQueryContract;
+
+interface RepositoryContract extends RepositoryCommandContract, RepositoryQueryContract
 {
     
 }
