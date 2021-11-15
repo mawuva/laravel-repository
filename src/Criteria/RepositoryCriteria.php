@@ -1,6 +1,6 @@
 <?php
 
-namespace Mawuekom\Repository\Traits;
+namespace Mawuekom\Repository\Criteria;
 
 trait RepositoryCriteria
 {
