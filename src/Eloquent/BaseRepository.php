@@ -3,16 +3,29 @@
 namespace Mawuekom\Repository\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Mawuekom\Repository\Contracts\Criteria\RepositoryCriteriaContract;
 use Mawuekom\Repository\Contracts\RepositoryContract;
+use Mawuekom\Repository\Criteria\RepositoryCriteria;
 use Mawuekom\Repository\Exceptions\RepositoryException;
 use Mawuekom\Repository\Traits\CallsModelMethods;
 
-abstract class BaseRepository implements RepositoryContract
+abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaContract
 {
-    use CallsModelMethods;
+    use CallsModelMethods, RepositoryCriteria;
 
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
+
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $criteria;
+
+    /**
+     * @var bool
+     */
+    protected $skipCriteria = false;
 
     /**
      * Create new repository instance
@@ -21,8 +34,9 @@ abstract class BaseRepository implements RepositoryContract
      * 
      * @return void
      */
-    public function __construct()
+    public function __construct(Collection $collection)
     {
+        $this ->criteria = $collection;
         $this ->makeModel();
     }
 
