@@ -28,6 +28,11 @@ abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaC
     protected $skipCriteria = false;
 
     /**
+     * @var \Closure
+     */
+    protected $scopeQuery = null;
+
+    /**
      * Create new repository instance
      * 
      * @param \Illuminate\Support\Collection $collection
@@ -84,5 +89,46 @@ abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaC
     public function resetModel()
     {
         $this ->makeModel();
+    }
+
+    /**
+     * Query Scope
+     *
+     * @param \Closure $scope
+     *
+     * @return $this
+     */
+    public function scopeQuery(\Closure $scope)
+    {
+        $this ->scopeQuery = $scope;
+
+        return $this;
+    }
+
+    /**
+     * Reset Query Scope
+     *
+     * @return $this
+     */
+    public function resetScope()
+    {
+        $this ->scopeQuery = null;
+
+        return $this;
+    }
+
+    /**
+     * Apply scope in current Query
+     *
+     * @return $this
+     */
+    protected function applyScope()
+    {
+        if (isset($this ->scopeQuery) && is_callable($this ->scopeQuery)) {
+            $callback = $this ->scopeQuery;
+            $this ->model = $callback($this ->model);
+        }
+
+        return $this;
     }
 }
