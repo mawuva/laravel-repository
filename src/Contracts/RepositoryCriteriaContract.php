@@ -2,7 +2,7 @@
 
 namespace Mawuekom\Repository\Contracts;
 
-interface RepositoryContract
+interface RepositoryCriteriaContract
 {
     
 }
