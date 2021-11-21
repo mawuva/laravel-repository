@@ -59,17 +59,18 @@ trait RepositoryQuery
      * Search data
      * 
      * @param string|int $searchTerm
+     * @param array $columns
      * 
      * @return mixed
      */
-    public function search($searchTerm)
+    public function search($searchTerm, $columns = ['*'])
     {
         $this->applyCriteria();
         $this->applyScope();
 
         $results = $this ->model 
-                        ->whereLike($this ->searchableFields(), $searchTerm) 
-                        ->get();
+                        ->whereLike($this ->searchFields(), $searchTerm) 
+                        ->get($columns);
 
         $this->resetModel();
         $this->resetScope();
