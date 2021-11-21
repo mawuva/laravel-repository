@@ -11,6 +11,8 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        require_once __DIR__.'/helpers.php';
+        
         /*
          * Optional methods to load your package assets
          */
