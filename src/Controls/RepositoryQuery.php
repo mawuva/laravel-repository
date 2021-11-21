@@ -68,8 +68,29 @@ trait RepositoryQuery
         $this->applyScope();
 
         $results = $this ->model 
-                        ->whereLike($this ->searchFields(), $searchTerm) 
+                        ->whereLike($this ->searchableFields(), $searchTerm) 
                         ->get();
+
+        $this->resetModel();
+        $this->resetScope();
+
+        return $results;
+    }
+
+    /**
+     * %ake search query builder
+     * 
+     * @param string|int $searchTerm
+     * 
+     * @return mixed
+     */
+    public function buildSearch($searchTerm)
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+
+        $results = $this ->model 
+                        ->whereLike($this ->searchableFields(), $searchTerm);
 
         $this->resetModel();
         $this->resetScope();

@@ -11,6 +11,7 @@ use Mawuekom\Repository\Controls\RepositoryQuery;
 use Mawuekom\Repository\Criteria\RepositoryCriteria;
 use Mawuekom\Repository\Exceptions\RepositoryException;
 use Mawuekom\Repository\Traits\CallsModelMethods;
+use Spatie\QueryBuilder\QueryBuilder;
 
 abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaContract
 {
@@ -62,6 +63,34 @@ abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaC
     abstract public function searchableFields();
 
     /**
+     * Columns on which filterig will be done
+     * 
+     * @return array
+     */
+    abstract public function filterableFields(): array;
+
+    /**
+     * Determine by which property the results collection will be ordered
+     * 
+     * @return array
+     */
+    abstract public function sortableFields(): array;
+
+    /**
+     * Determine the relation that will be load on the resulting model
+     * 
+     * @return array
+     */
+    abstract public function includableRelations(): array;
+
+    /**
+     * Define a couple fields that will be fetch to reduce the overall size of your SQL query
+     * 
+     * @return array
+     */
+    abstract public function selectableFields(): array;
+
+    /**
      * Create model instance
      * 
      * @throws \Mawuekom\Repository\Exceptions\RepositoryException
@@ -110,6 +139,39 @@ abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaC
     public function get($columns = ['*'])
     {
         return $this ->all($columns);
+    }
+
+    /**
+     * Make request to JSON API
+     *
+     * @return mixed
+     */
+    public function toAPI()
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+        
+        $result = QueryBuilder::for($this ->model)
+                    ->allowedFilters($this ->filterableFields())
+                    ->allowedSorts($this ->sortableFields())
+                    ->allowedFields($this ->searchableFields())
+                    ->allowedIncludes($this ->includableRelations());
+
+        $this->resetModel();
+        $this->resetScope();
+
+        return $result;
+    }
+
+    /**
+     * Convert paginate to JSON
+     *
+     * @return mixed
+     */
+    public function jsonPaginate()
+    {
+        return $this ->jsonPaginate()
+                    ->appends(request()->query());
     }
 
     /**
