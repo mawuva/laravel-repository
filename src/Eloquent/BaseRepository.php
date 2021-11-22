@@ -175,6 +175,91 @@ abstract class BaseRepository implements RepositoryContract, RepositoryCriteriaC
     }
 
     /**
+     * Check if entity has relation
+     *
+     * @param string $relation
+     *
+     * @return $this
+     */
+    public function has($relation)
+    {
+        $this->model = $this->model->has($relation);
+
+        return $this;
+    }
+
+    /**
+     * Load relations
+     *
+     * @param array|string $relations
+     *
+     * @return $this
+     */
+    public function with($relations)
+    {
+        $this->model = $this->model->with($relations);
+
+        return $this;
+    }
+
+    /**
+     * Add subselect queries to count the relations.
+     *
+     * @param mixed $relations
+     *
+     * @return $this
+     */
+    public function withCount($relations)
+    {
+        $this->model = $this->model->withCount($relations);
+        return $this;
+    }
+
+    /**
+     * Load relation with closure
+     *
+     * @param string  $relation
+     * @param closure $closure
+     *
+     * @return $this
+     */
+    public function whereHas($relation, $closure)
+    {
+        $this->model = $this->model->whereHas($relation, $closure);
+
+        return $this;
+    }
+
+    /**
+     * Set hidden fields
+     *
+     * @param array $fields
+     *
+     * @return $this
+     */
+    public function hidden(array $fields)
+    {
+        $this->model->setHidden($fields);
+
+        return $this;
+    }
+
+    /**
+     * Set the "orderBy" value of the query.
+     *
+     * @param mixed  $column
+     * @param string $direction
+     *
+     * @return $this
+     */
+    public function orderBy($column, $direction = 'asc')
+    {
+        $this->model = $this->model->orderBy($column, $direction);
+
+        return $this;
+    }
+
+    /**
      * Query Scope
      *
      * @param \Closure $scope
