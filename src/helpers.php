@@ -1,16 +1,17 @@
 <?php
 
+
 if ( ! function_exists('success_response')) {
     /**
-     * Generate username from random string
+     * Return array of response
      *
      * @param array|null|Object $data
-     * @param int $code
      * @param string $message
+     * @param int $code
      * 
      * @return array
      */
-    function success_response($data = null, int $code = 200, string $message = 'Action performed successfully'): array {
+    function success_response($data = null, string $message = 'Action performed successfully', int $code = 200): array {
         return [
             'code'      => $code,
             'status'    => 'success',
@@ -22,15 +23,15 @@ if ( ! function_exists('success_response')) {
 
 if ( ! function_exists('failure_response')) {
     /**
-     * Generate username from random string
+     * Return array of response
      *
      * @param array|null|Object $data
-     * @param int $code
      * @param string $message
+     * @param int $code
      * 
      * @return array
      */
-    function failure_response($data = null, int $code = 0, string $message = 'Action attempted failed'): array {
+    function failure_response($data = null, string $message = 'Action attempted failed', int $code = 0): array {
         return [
             'code'      => $code,
             'status'    => 'failed',
